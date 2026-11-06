@@ -1,0 +1,831 @@
+[
+  {
+    "id": "t01-e01",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "easy",
+    "type": "calculation",
+    "stem": "What is the hexadecimal value 0x2C in decimal?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "194",
+        "correct": false,
+        "whyWrong": "This is 0xC2: the two hex digits were read in the wrong order.",
+        "misconception": "error: reversed digit order"
+      },
+      {
+        "id": "b",
+        "text": "32",
+        "correct": false,
+        "whyWrong": "This treats the 2 as if it were in a tens place (2 × 10 + 12). In hex the left digit is worth 16 each.",
+        "misconception": "error: used base 10 place value"
+      },
+      {
+        "id": "c",
+        "text": "44",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "d",
+        "text": "43",
+        "correct": false,
+        "whyWrong": "This maps C to 11 instead of 12. The hex letters run A = 10, B = 11, C = 12.",
+        "misconception": "error: off-by-one hex letter value"
+      }
+    ],
+    "explanation": "Each hex position is worth 16 times the one to its right. 0x2C = 2 × 16 + C, and C is 12, so the value is 32 + 12 = 44. In binary that is 0010 1100, one nibble per hex digit.",
+    "keyInsight": "A hex digit's value is multiplied by 16 for each place it sits to the left.",
+    "hint": "Write down the place values of the two hex positions first.",
+    "lessonAnchor": "bits-bytes-and-number-bases",
+    "evidence": "Hex uses the digits 0–9 and A–F (A = 10, ..., F = 15).",
+    "concepts": [
+      "number-bases",
+      "hexadecimal"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.99,
+      "notes": "0x2C=44; 0xC2=194"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-e02",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "easy",
+    "type": "concept-check",
+    "stem": "A 16-bit signed integer uses two's complement. Which range of values can it hold?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "−32,768 to 32,767",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "b",
+        "text": "−32,767 to 32,767",
+        "correct": false,
+        "whyWrong": "This assumes a symmetric range, as in sign-magnitude with its two zeros. Two's complement has one zero, so it gains one extra negative value.",
+        "misconception": "M4"
+      },
+      {
+        "id": "c",
+        "text": "−32,768 to 32,768",
+        "correct": false,
+        "whyWrong": "+32,768 would need the top bit, but in two's complement the top bit set means negative. The largest positive value is 2^15 − 1.",
+        "misconception": "M4"
+      },
+      {
+        "id": "d",
+        "text": "0 to 65,535",
+        "correct": false,
+        "whyWrong": "This is the 16-bit unsigned range. A signed type gives the top bit a negative weight.",
+        "misconception": "error: used the unsigned range"
+      }
+    ],
+    "explanation": "With n bits, two's complement covers −2^(n−1) to 2^(n−1) − 1. For n = 16 that is −2^15 = −32,768 up to 2^15 − 1 = 32,767. The range is lopsided because zero uses one of the non-negative patterns, leaving one more negative value than positive.",
+    "keyInsight": "An n-bit two's complement integer runs from −2^(n−1) to 2^(n−1) − 1.",
+    "hint": "Apply the general n-bit formula with n = 16.",
+    "lessonAnchor": "twos-complement",
+    "evidence": "Range: −2^(n−1) to 2^(n−1) − 1. For 8 bits that is −128 to 127.",
+    "concepts": [
+      "twos-complement"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.99,
+      "notes": "2^15=32768"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-e03",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "easy",
+    "type": "compare",
+    "stem": "What is the relationship between Unicode and UTF-8?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "Unicode is a 2-byte encoding; UTF-8 is its 1-byte form",
+        "correct": false,
+        "whyWrong": "Unicode is not an encoding and does not fix a byte size. UTF-8 also uses up to 4 bytes, not 1.",
+        "misconception": "M9"
+      },
+      {
+        "id": "b",
+        "text": "UTF-8 covers Western scripts; Unicode covers all of them",
+        "correct": false,
+        "whyWrong": "UTF-8 can encode every Unicode code point, up to U+10FFFF, using up to 4 bytes.",
+        "misconception": "error: thinks UTF-8 is limited"
+      },
+      {
+        "id": "c",
+        "text": "They are two names for the same 16-bit format",
+        "correct": false,
+        "whyWrong": "Neither is a fixed 16-bit format. Unicode assigns numbers; UTF-8 is a variable-length byte encoding.",
+        "misconception": "M9"
+      },
+      {
+        "id": "d",
+        "text": "Unicode numbers characters; UTF-8 turns those numbers into bytes",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      }
+    ],
+    "explanation": "Unicode is a character set: it assigns each character a code point between U+0000 and U+10FFFF. It says nothing about bytes. UTF-8 is one encoding that turns each code point into 1 to 4 bytes; UTF-16 and UTF-32 are others.",
+    "keyInsight": "Unicode decides which number a character gets; an encoding like UTF-8 decides the bytes.",
+    "hint": "Separate the idea of numbering characters from the idea of storing those numbers.",
+    "lessonAnchor": "text-encoding",
+    "evidence": "Unicode is a character set, not an encoding. It assigns every character a code point",
+    "concepts": [
+      "unicode",
+      "utf-8"
+    ],
+    "verification": {
+      "method": "reasoned",
+      "confidence": 0.97,
+      "notes": "Definitional; matches lesson and Unicode/RFC 3629"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-e04",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "easy",
+    "type": "concept-check",
+    "stem": "A little-endian machine stores the 32-bit value 0x0A0B0C0D starting at address 0x200. Which byte is at address 0x200?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "0x0A",
+        "correct": false,
+        "whyWrong": "0x0A is the most significant byte. It would come first on a big-endian machine.",
+        "misconception": "error: used big-endian order"
+      },
+      {
+        "id": "b",
+        "text": "0x0D",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "c",
+        "text": "0xB0",
+        "correct": false,
+        "whyWrong": "0xB0 is 0x0D with its bits reversed. Endianness reorders whole bytes, never the bits inside one.",
+        "misconception": "M8"
+      },
+      {
+        "id": "d",
+        "text": "0x0C",
+        "correct": false,
+        "whyWrong": "0x0C is the second byte in little-endian order, at address 0x201.",
+        "misconception": "error: off-by-one address"
+      }
+    ],
+    "explanation": "Little-endian puts the least significant byte at the lowest address. The least significant byte of 0x0A0B0C0D is 0x0D, so memory from 0x200 upward holds 0D 0C 0B 0A.",
+    "keyInsight": "Little-endian means the least significant byte has the lowest address.",
+    "hint": "Identify the least significant byte first.",
+    "lessonAnchor": "endianness",
+    "evidence": "Little-endian stores the least significant byte first.",
+    "concepts": [
+      "endianness"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.99,
+      "notes": "struct.pack('<I',0x0A0B0C0D) = 0d 0c 0b 0a"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-e05",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "easy",
+    "type": "concept-check",
+    "stem": "In C with IEEE 754 doubles, why does 0.1 + 0.2 == 0.3 evaluate to false?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "0.1, 0.2, and 0.3 are each rounded to nearby binary values",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "b",
+        "text": "Doubles keep about 7 digits, so the sum gets truncated",
+        "correct": false,
+        "whyWrong": "About 7 significant digits is float precision. A double keeps about 15–17, and the problem is binary rounding, not truncation.",
+        "misconception": "error: confused float and double precision"
+      },
+      {
+        "id": "c",
+        "text": "The == operator compares the memory addresses of doubles",
+        "correct": false,
+        "whyWrong": "== on two double values compares the values. Address comparison only happens with pointers.",
+        "misconception": "error: confused values with pointers"
+      },
+      {
+        "id": "d",
+        "text": "Floating-point addition hardware loses the final carry bit",
+        "correct": false,
+        "whyWrong": "The adder is correct; it rounds the exact sum of its inputs as IEEE 754 requires. The inputs were already inexact.",
+        "misconception": "M6"
+      }
+    ],
+    "explanation": "0.1 in binary repeats forever, like 1/3 in decimal, so it must be rounded to the nearest double. The same happens to 0.2 and 0.3. The sum of the rounded 0.1 and 0.2, rounded again, lands on a different double than the rounded 0.3. That is why it prints as 0.30000000000000004 with 17 digits.",
+    "keyInsight": "Most decimal fractions have no exact binary form, so floats store a nearby value.",
+    "hint": "Think about what 0.1 looks like when written in base 2.",
+    "lessonAnchor": "floating-point",
+    "evidence": "0.1 in binary is 0.000110011001100... repeating forever, just as 1/3 repeats in decimal.",
+    "concepts": [
+      "floating-point",
+      "float-precision"
+    ],
+    "verification": {
+      "method": "executed",
+      "confidence": 0.98,
+      "notes": "Lesson snippet run: 0.30000000000000004, == gives 0"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-m01",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "medium",
+    "type": "calculation",
+    "stem": "Assume 8-bit two's complement. Which decimal value does the bit pattern 11010110 represent?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "−86",
+        "correct": false,
+        "whyWrong": "This reads the top bit as a sign and the remaining 1010110 (86) as the magnitude. That is sign-magnitude, not two's complement.",
+        "misconception": "M2"
+      },
+      {
+        "id": "b",
+        "text": "−42",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "c",
+        "text": "214",
+        "correct": false,
+        "whyWrong": "214 is the unsigned reading. With the top bit set, a two's complement byte is negative.",
+        "misconception": "error: read as unsigned"
+      },
+      {
+        "id": "d",
+        "text": "−41",
+        "correct": false,
+        "whyWrong": "Inverting the bits gives 00101001 (41), but you must also add 1 to get the magnitude 42. Stopping at the inversion is ones' complement.",
+        "misconception": "M3"
+      }
+    ],
+    "explanation": "Read as unsigned: 128 + 64 + 16 + 4 + 2 = 214. The top bit is set, so subtract 2^8 = 256: 214 − 256 = −42. Check by negating: invert 11010110 to 00101001 (41), add 1 to get 42, so the original is −42.",
+    "keyInsight": "A byte with its top bit set has the value (unsigned value − 256).",
+    "hint": "Find the unsigned value first, then account for the top bit's weight.",
+    "lessonAnchor": "twos-complement",
+    "evidence": "To read a pattern whose top bit is 1, take its unsigned value and subtract 2^n.",
+    "concepts": [
+      "twos-complement"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.99,
+      "notes": "0b11010110=214, 214-256=-42; low 7 bits=86; inverted=41"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-m02",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "medium",
+    "type": "predict-output",
+    "stem": "Assume C11 with 8-bit uint8_t. What does the code below print?",
+    "code": {
+      "language": "c",
+      "source": "#include <stdio.h>\n#include <stdint.h>\n\nint main(void) {\n    uint8_t a = 200;\n    uint8_t b = 100;\n    uint8_t c = a + b;\n    printf(\"%d\\n\", c);\n    return 0;\n}"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "300",
+        "correct": false,
+        "whyWrong": "a + b is computed as int 300, but storing it in the uint8_t c keeps only the low 8 bits.",
+        "misconception": "error: ignored the destination width"
+      },
+      {
+        "id": "b",
+        "text": "255",
+        "correct": false,
+        "whyWrong": "C does not saturate integer arithmetic. Unsigned values wrap modulo 2^n.",
+        "misconception": "error: assumed saturation"
+      },
+      {
+        "id": "c",
+        "text": "Undefined; the output can vary",
+        "correct": false,
+        "whyWrong": "Wrapping is well defined for unsigned types. Undefined behavior applies to signed overflow.",
+        "misconception": "M5"
+      },
+      {
+        "id": "d",
+        "text": "44",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      }
+    ],
+    "explanation": "a and b are promoted to int, so a + b is 300. Assigning 300 to a uint8_t reduces it modulo 256: 300 − 256 = 44. Unsigned conversion and arithmetic are defined to wrap, so the output is always 44.",
+    "keyInsight": "Unsigned values in C wrap modulo 2^n; they never saturate and are never undefined.",
+    "hint": "Work out the full sum, then ask what fits in 8 bits.",
+    "lessonAnchor": "twos-complement",
+    "evidence": "In C, unsigned arithmetic is defined to wrap modulo 2^n.",
+    "concepts": [
+      "integer-overflow"
+    ],
+    "verification": {
+      "method": "executed",
+      "confidence": 0.99,
+      "notes": "Compiled and ran: prints 44"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-m03",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "medium",
+    "type": "calculation",
+    "stem": "Which 32-bit pattern, in hex, is the IEEE 754 float for 5.0?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "0x40D00000",
+        "correct": false,
+        "whyWrong": "This stores the leading 1 inside the fraction (fraction 101...). That 1 is implicit, so the bits actually encode 6.5.",
+        "misconception": "error: stored the implicit leading 1"
+      },
+      {
+        "id": "b",
+        "text": "0x01200000",
+        "correct": false,
+        "whyWrong": "This stores the exponent as 2 without adding the bias of 127, giving a tiny number near 3e-38.",
+        "misconception": "error: forgot the exponent bias"
+      },
+      {
+        "id": "c",
+        "text": "0x40A00000",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "d",
+        "text": "0x40200000",
+        "correct": false,
+        "whyWrong": "This uses exponent 128 (2^1), which encodes 2.5. 5.0 needs 2^2.",
+        "misconception": "error: exponent off by one"
+      }
+    ],
+    "explanation": "5 = 101b = 1.01b × 2^2. Sign 0. Exponent 2 + 127 = 129 = 1000 0001. Fraction is what follows the implicit 1: 01 then zeros. Bits: 0 10000001 0100...0, grouped as 0100 0000 1010 0000 ... = 0x40A00000.",
+    "keyInsight": "Normalize to 1.xxx × 2^e, store e + 127, and drop the leading 1.",
+    "hint": "Write 5 in binary, normalize it, then fill in sign, biased exponent, and fraction.",
+    "lessonAnchor": "floating-point",
+    "evidence": "The leading 1 is implicit and not stored.",
+    "concepts": [
+      "ieee-754",
+      "floating-point"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.99,
+      "notes": "struct.unpack: 40A00000=5.0, 40D00000=6.5, 01200000=2.9e-38, 40200000=2.5"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-m04",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "medium",
+    "type": "trace",
+    "stem": "A little-endian machine has uint16_t arr[2] = {0x1234, 0xABCD} starting at address 0x10. Which bytes are at addresses 0x10 to 0x13, in address order?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "34 12 CD AB",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "b",
+        "text": "12 34 AB CD",
+        "correct": false,
+        "whyWrong": "This is big-endian order: each element's most significant byte first.",
+        "misconception": "error: used big-endian order"
+      },
+      {
+        "id": "c",
+        "text": "CD AB 34 12",
+        "correct": false,
+        "whyWrong": "This also reverses the order of the array elements. Endianness only reorders bytes inside each value; arr[0] stays first.",
+        "misconception": "M8"
+      },
+      {
+        "id": "d",
+        "text": "43 21 DC BA",
+        "correct": false,
+        "whyWrong": "This reverses the hex digits (nibbles) within each byte. Endianness moves whole bytes and leaves their contents alone.",
+        "misconception": "M8"
+      }
+    ],
+    "explanation": "Elements stay in order: arr[0] at 0x10–0x11, arr[1] at 0x12–0x13. Within each 16-bit element, little-endian puts the low byte first: 0x1234 becomes 34 12 and 0xABCD becomes CD AB. Memory reads 34 12 CD AB.",
+    "keyInsight": "Endianness applies separately to each multi-byte value; arrays keep their order.",
+    "hint": "Place each element first, then order the bytes inside each one.",
+    "lessonAnchor": "endianness",
+    "evidence": "It applies to each multi-byte value on its own. An array of values keeps its element order",
+    "concepts": [
+      "endianness"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.99,
+      "notes": "struct.pack('<2H',0x1234,0xABCD) = 34 12 cd ab"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-m05",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "medium",
+    "type": "calculation",
+    "stem": "Which bytes encode the character ï (code point U+00EF) in UTF-8?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "EF",
+        "correct": false,
+        "whyWrong": "Only U+0000 to U+007F fit in one UTF-8 byte. EF is the Latin-1 byte, and in UTF-8 it would start a 3-byte sequence.",
+        "misconception": "error: used the code point as a single byte"
+      },
+      {
+        "id": "b",
+        "text": "C3 AF",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "c",
+        "text": "00 EF",
+        "correct": false,
+        "whyWrong": "This is the 2-byte UTF-16 big-endian form. UTF-8 has its own bit layout with 110 and 10 prefixes.",
+        "misconception": "M9"
+      },
+      {
+        "id": "d",
+        "text": "C2 AF",
+        "correct": false,
+        "whyWrong": "This puts only the top 2 bits into the lead byte. 0xEF needs 11 bits split 5 + 6: 00011 and 101111.",
+        "misconception": "error: split the bits incorrectly"
+      }
+    ],
+    "explanation": "U+00EF is in U+0080..U+07FF, so it takes 2 bytes: 110xxxxx 10xxxxxx. 0xEF as 11 bits is 000 1110 1111. Split into 5 and 6 bits: 00011 and 101111. Lead byte 110 00011 = C3, continuation 10 101111 = AF.",
+    "keyInsight": "In UTF-8, code points U+0080 to U+07FF use 2 bytes: 110 plus 5 bits, then 10 plus 6 bits.",
+    "hint": "Find which UTF-8 range the code point falls in, then fill the x bits from the right.",
+    "lessonAnchor": "text-encoding",
+    "evidence": "Write the code point in binary, then fill the x positions from right to left, padding with zeros on the left.",
+    "concepts": [
+      "utf-8"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.99,
+      "notes": "'\\u00ef'.encode() = c3 af; C2 AF decodes to U+00AF"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-h01",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "hard",
+    "type": "spot-the-bug",
+    "stem": "The code below is meant to print the array in reverse: 40, 30, 20, 10. Assume 32-bit unsigned int. What is the bug?",
+    "code": {
+      "language": "c",
+      "source": "#include <stdio.h>\n\nint main(void) {\n    int arr[] = {10, 20, 30, 40};\n    unsigned n = 4;\n    for (unsigned i = n - 1; i >= 0; i--)\n        printf(\"%d\\n\", arr[i]);\n    return 0;\n}"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "The loop should test i > 0, so it currently prints one extra element",
+        "correct": false,
+        "whyWrong": "Changing the test to i > 0 would skip arr[0]. The real problem is that i >= 0 is always true for an unsigned variable.",
+        "misconception": "error: misdiagnosed as off-by-one"
+      },
+      {
+        "id": "b",
+        "text": "When i is 0, i-- makes i equal to −1, so arr[-1] is read once",
+        "correct": false,
+        "whyWrong": "An unsigned value can never be −1. Decrementing 0 wraps to the largest unsigned value, and the loop keeps going.",
+        "misconception": "M12"
+      },
+      {
+        "id": "c",
+        "text": "i >= 0 is always true; at 0, i-- wraps and the loop indexes far out of bounds",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "d",
+        "text": "Signed overflow in i-- is undefined, so the compiler may delete the loop",
+        "correct": false,
+        "whyWrong": "i is unsigned, and unsigned wraparound is fully defined. The undefined behavior comes from the out-of-bounds read, not from the decrement.",
+        "misconception": "M5"
+      }
+    ],
+    "explanation": "i is unsigned, so it can never be negative and the condition i >= 0 never fails. The first four iterations print 40, 30, 20, 10. Then i-- turns 0 into 4294967295, and arr[4294967295] reads far outside the array, which is undefined behavior and usually crashes. A fix is for (unsigned i = n; i-- > 0; ) or a signed index.",
+    "keyInsight": "An unsigned loop counter cannot go below zero, so a test like i >= 0 never ends the loop.",
+    "hint": "Ask what values an unsigned variable can actually hold.",
+    "lessonAnchor": "twos-complement",
+    "evidence": "An unsigned value never goes below zero. Subtracting past zero wraps to a very large number.",
+    "concepts": [
+      "signed-unsigned",
+      "integer-overflow"
+    ],
+    "verification": {
+      "method": "reasoned",
+      "confidence": 0.96,
+      "notes": "Compiles with -Wall without warnings. Not executed because the bug is UB; traced by hand."
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-h02",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "hard",
+    "type": "which-is-false",
+    "stem": "Assume IEEE 754 doubles with default round-to-nearest, and note that 2^53 ≈ 9.0 × 10^15. Which statement is FALSE?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "Every integer from −2^53 to 2^53 is exactly representable",
+        "correct": false,
+        "whyWrong": "This is true: the 52 fraction bits plus the implicit 1 give 53 significant bits, enough for every integer in that range.",
+        "misconception": "M7"
+      },
+      {
+        "id": "b",
+        "text": "Near 10^16, adjacent doubles are more than 1 apart",
+        "correct": false,
+        "whyWrong": "This is true: 10^16 is above 2^53, where the gap between neighbors grows to 2.",
+        "misconception": "M7"
+      },
+      {
+        "id": "c",
+        "text": "x != x evaluates to true when x is NaN",
+        "correct": false,
+        "whyWrong": "This is true: NaN compares unequal to everything, including itself.",
+        "misconception": "error: assumed NaN equals itself"
+      },
+      {
+        "id": "d",
+        "text": "(a + b) + c always equals a + (b + c) for finite values",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      }
+    ],
+    "explanation": "Every operation rounds its exact result, so the order of additions changes which roundings happen. In Python, (0.1 + 0.2) + 0.3 and 0.1 + (0.2 + 0.3) differ in the last bit. The other statements are true: doubles hold 53 significant bits, so integers are exact up to 2^53 and the spacing is 2 just above it. NaN is unequal even to itself.",
+    "keyInsight": "Floating-point addition rounds at every step, so it is not associative.",
+    "hint": "For each statement, ask whether rounding happens and where.",
+    "lessonAnchor": "floating-point",
+    "evidence": "(a + b) + c and a + (b + c) can give different results: floating-point addition is not associative.",
+    "concepts": [
+      "floating-point",
+      "float-precision"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.97,
+      "notes": "(0.1+0.2)+0.3 != 0.1+(0.2+0.3) in Python; math.ulp(1e16)=2.0; NaN!=NaN"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-h03",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "hard",
+    "type": "scenario",
+    "stem": "A form saves the German word \"Größe\" to a database. A reporting tool later displays it as \"GrÃ¶ÃŸe\", and its length column shows 7 instead of 5. Other tools show the stored text correctly. What is the most likely cause, and what is the right fix?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "The report decodes UTF-8 bytes as Windows-1252; make it read UTF-8",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "b",
+        "text": "The writer used UTF-16, adding bytes; switch the writer to ASCII",
+        "correct": false,
+        "whyWrong": "ASCII cannot store ö or ß at all. The pattern of Ã followed by one symbol is two UTF-8 bytes shown as two characters, not UTF-16.",
+        "misconception": "M9"
+      },
+      {
+        "id": "c",
+        "text": "The stored bytes are corrupted; re-enter the text in the database",
+        "correct": false,
+        "whyWrong": "Other tools display the text correctly, so the stored bytes are fine. Only the reading step is wrong.",
+        "misconception": "error: blamed storage instead of decoding"
+      },
+      {
+        "id": "d",
+        "text": "The report's font lacks ö and ß; install a font with those glyphs",
+        "correct": false,
+        "whyWrong": "A missing glyph shows as a box or replacement symbol, not as specific other characters. It also would not change the length to 7.",
+        "misconception": "error: confused glyph rendering with decoding"
+      }
+    ],
+    "explanation": "In UTF-8, ö is C3 B6 and ß is C3 9F, so \"Größe\" is 7 bytes. Read one byte per character as Windows-1252, C3 shows as Ã, B6 as ¶, and 9F as Ÿ, giving 7 characters. Since other tools read the same data correctly, the bytes are fine, and the fix is to decode as UTF-8 in the report.",
+    "keyInsight": "An accented letter turning into Ã plus another symbol means UTF-8 bytes were decoded as a single-byte encoding.",
+    "hint": "Count how many bytes Größe takes in UTF-8 and compare with the 7.",
+    "lessonAnchor": "text-encoding",
+    "evidence": "If UTF-8 bytes are decoded as a single-byte encoding such as Windows-1252, each byte becomes its own character",
+    "concepts": [
+      "text-encoding",
+      "utf-8"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.97,
+      "notes": "'Größe'.encode().decode('cp1252') == 'GrÃ¶ÃŸe'; 7 bytes"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-h04",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "hard",
+    "type": "predict-output",
+    "stem": "Assume a little-endian machine with 8-bit int8_t and 32-bit int32_t. What does the code below print?",
+    "code": {
+      "language": "c",
+      "source": "#include <stdio.h>\n#include <stdint.h>\n\nint main(void) {\n    int8_t s = -3;\n    int32_t w = s;\n    unsigned char *p = (unsigned char *)&w;\n    printf(\"%02X %02X\\n\", p[0], p[3]);\n    return 0;\n}"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "FD 00",
+        "correct": false,
+        "whyWrong": "This assumes the new high bytes are filled with zeros. A signed value is sign-extended, so they are FF.",
+        "misconception": "error: zero-extended a signed value"
+      },
+      {
+        "id": "b",
+        "text": "FD FF",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      },
+      {
+        "id": "c",
+        "text": "FF FD",
+        "correct": false,
+        "whyWrong": "This lists the bytes in big-endian order. On a little-endian machine p[0] is the least significant byte.",
+        "misconception": "error: used big-endian order"
+      },
+      {
+        "id": "d",
+        "text": "00 FD",
+        "correct": false,
+        "whyWrong": "This combines two errors: zero extension instead of sign extension, and big-endian byte order.",
+        "misconception": "error: zero extension and big-endian order"
+      }
+    ],
+    "explanation": "−3 as int8_t is FD. Widening to int32_t sign-extends, copying the top bit into the new bits, giving 0xFFFFFFFD, still −3. Little-endian stores the least significant byte first, so memory holds FD FF FF FF. p[0] is FD and p[3] is FF.",
+    "keyInsight": "Widening a signed value copies its sign bit; endianness then decides which byte comes first.",
+    "hint": "Find the 32-bit pattern for −3 first, then lay it out in memory.",
+    "lessonAnchor": "twos-complement",
+    "evidence": "when a signed value is widened, the top bit is copied into the new high bits",
+    "concepts": [
+      "sign-extension",
+      "endianness",
+      "twos-complement"
+    ],
+    "verification": {
+      "method": "executed",
+      "confidence": 0.99,
+      "notes": "Compiled and ran on arm64: prints FD FF"
+    },
+    "version": 1
+  },
+  {
+    "id": "t01-h05",
+    "lessonId": "t01",
+    "topic": 1,
+    "topicSlug": "number-systems",
+    "level": "hard",
+    "type": "scenario",
+    "stem": "A service stores display names as UTF-8 and cuts each one to its first 10 bytes to fit a column. Users with names like \"Zoë Ibáñez\" report that their names end with a � symbol. What is happening, and what is a correct fix?",
+    "code": null,
+    "options": [
+      {
+        "id": "a",
+        "text": "UTF-8 is little-endian, so the cut drops low bytes; swap byte order first",
+        "correct": false,
+        "whyWrong": "UTF-8 is a sequence of single bytes and has no endianness. Swapping would corrupt the text further.",
+        "misconception": "M8"
+      },
+      {
+        "id": "b",
+        "text": "Non-ASCII characters take exactly 2 bytes; cut at an even byte count",
+        "correct": false,
+        "whyWrong": "UTF-8 characters take 1 to 4 bytes, and ASCII characters before the cut shift the alignment, so an even count does not help.",
+        "misconception": "M9"
+      },
+      {
+        "id": "c",
+        "text": "The column stores UTF-16, so 10 bytes is 5 characters; double the limit",
+        "correct": false,
+        "whyWrong": "The data is stored as UTF-8. A larger limit only moves the problem to longer names.",
+        "misconception": "error: misdiagnosed the encoding"
+      },
+      {
+        "id": "d",
+        "text": "The cut can split a character; back up to a byte not of form 10xxxxxx",
+        "correct": true,
+        "whyWrong": null,
+        "misconception": null
+      }
+    ],
+    "explanation": "\"Zoë Ibáñez\" is Z, o, ë (2 bytes), space, I, b, á (2 bytes), then ñ, which occupies bytes 10 and 11. The first 10 bytes end with C3, the lead byte of ñ, without its continuation byte. That leftover is invalid UTF-8 and is shown as �. Because continuation bytes always start with 10, the fix is to move the cut back until it falls before a lead byte or an ASCII byte.",
+    "keyInsight": "Truncate UTF-8 only at character boundaries, which you can find because continuation bytes start with 10.",
+    "hint": "Write out the byte count of each character up to the cut.",
+    "lessonAnchor": "text-encoding",
+    "evidence": "continuation bytes always start with 10, so from any position you can find the start of a character.",
+    "concepts": [
+      "utf-8",
+      "text-encoding"
+    ],
+    "verification": {
+      "method": "computed",
+      "confidence": 0.97,
+      "notes": "'Zoë Ibáñez'.encode()[:10] ends with c3; decode errors on last byte"
+    },
+    "version": 1
+  }
+]
