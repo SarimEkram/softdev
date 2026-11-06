@@ -24,6 +24,7 @@ npm run build     # validate content + production build
 ## How it works
 
 - **Content** is bundled at build time, so the app works offline after the first visit.
+- **Rounds**: each round draws 5 questions from the level's pool, unseen ones first and then the least recently answered, so retries give new sets.
 - **Levels**: easy is open. Medium unlocks at 80% on easy over your last 5 to 10 answers, and hard unlocks the same way after medium.
 - **Review**: Leitner boxes (1, 3, 7, 14, 30 days). A correct answer moves a question up one box; a miss sends it back to box 1. Daily review mixes due questions with your weakest concepts.
 - **Storage**: IndexedDB holds an append-only attempt log and per-question review state. Export and import live on the Progress tab.

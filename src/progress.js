@@ -150,6 +150,19 @@ export function buildReview(limit = 10) {
   return { items, dueCount: due.length };
 }
 
+// One practice round: unseen questions first, then the ones answered
+// longest ago, so retries rotate through the whole pool.
+export const ROUND_SIZE = 5;
+
+export function pickRound(pool, size = ROUND_SIZE) {
+  const lastSeen = (q) => state.cards.get(q.id)?.last ?? 0;
+  return pool
+    .map((q) => ({ q, key: lastSeen(q), tie: Math.random() }))
+    .sort((a, b) => a.key - b.key || a.tie - b.tie)
+    .slice(0, size)
+    .map((x) => x.q);
+}
+
 export function nextDue() {
   const now = Date.now();
   let min = Infinity;

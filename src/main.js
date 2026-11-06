@@ -6,7 +6,7 @@ import {
 import {
   state, loadState, lessonStatus, conceptMastery, isMastered, buildReview,
   nextDue, answeredToday, boxCounts, exportData, importData, resetProgress,
-  LEVELS, BOX_DAYS,
+  pickRound, LEVELS, BOX_DAYS, ROUND_SIZE,
 } from './progress.js';
 import { startQuiz } from './quiz.js';
 import { esc, cap, pct, label, formatDay, icon } from './ui.js';
@@ -153,7 +153,7 @@ function levelPanel(lessonId) {
     else if (!st.unlocked) detail = `Score 80% on ${prev} to unlock`;
     else if (st.passed) detail = `Passed · last ${st.recent}: ${pct(st.score)}`;
     else if (st.recent) detail = `Last ${st.recent}: ${pct(st.score)} · need 80% over 5+`;
-    else detail = `${st.count} questions`;
+    else detail = `${Math.min(ROUND_SIZE, st.count)} per round from ${st.count}`;
     const enabled = st.unlocked && st.count;
     const tag = enabled ? 'a' : 'div';
     return `
@@ -344,7 +344,7 @@ function render() {
       return;
     }
     cleanup = startQuiz(app, {
-      items, mode: 'practice', lessonId: id, level,
+      draw: () => pickRound(items), mode: 'practice', lessonId: id, level,
       title: `${lessons.get(id).meta.title} · ${cap(level)}`,
       exitHref: `#/lesson/${id}/practice`,
     });
@@ -356,7 +356,7 @@ function render() {
       return;
     }
     cleanup = startQuiz(app, {
-      items, mode: 'review', title: 'Daily review', exitHref: '#/',
+      draw: () => items, mode: 'review', title: 'Daily review', exitHref: '#/',
     });
     return;
   } else {

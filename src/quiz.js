@@ -2,10 +2,12 @@ import { esc, cap, label, shuffle, icon } from './ui.js';
 import { lessons, sectionOf, renderMarkdown } from './content.js';
 import { recordAnswer, lessonStatus, LEVELS } from './progress.js';
 
-// One quiz run. `items` are questions; `mode` is "practice" or "review".
-export function startQuiz(root, { items, mode, title, exitHref, lessonId, level }) {
+// One quiz run. `draw` returns this round's questions and is called
+// again for "Practice again"; `mode` is "practice" or "review".
+export function startQuiz(root, opts) {
+  const { draw, mode, title, exitHref, lessonId, level } = opts;
   const run = {
-    items: shuffle(items),
+    items: shuffle(draw()),
     i: 0,
     results: [],
     before: lessonId ? lessonStatus(lessonId) : null,
@@ -176,7 +178,7 @@ export function startQuiz(root, { items, mode, title, exitHref, lessonId, level 
       </div>`;
 
     root.querySelector('[data-action="again"]')?.addEventListener('click', () => {
-      startQuiz(root, { items, mode, title, exitHref, lessonId, level });
+      startQuiz(root, opts);
     });
     window.scrollTo(0, 0);
   }
